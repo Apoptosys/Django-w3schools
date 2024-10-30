@@ -19,7 +19,7 @@
   <div class="container p-3 my-3">
     <div class="row">
       <div class="col-md-12">
-        <nav class="navbar navbar-expand-md navbar-light " style="background-color: #f0f5f5">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark " style="background-color: #f0f5f5">
           <a href="/" class="navbar-brand">Home</a>
             <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                 <span class="navbar-toggler-icon"></span>
@@ -27,7 +27,7 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
               <div class="navbar-nav ml-auto">
                 {% if user.is_authenticated %}
-                  <a href="#" class="nav-item nav-link">Profile</a>
+                  <a href="{% url 'users-profile' %}" class="nav-item nav-link">Profile</a>
                   <form method="post" action="{% url 'logout' %}">
                     {% csrf_token %}
                     <button class="btn btn-primary btn-lg" type="submit">Log out</button>
