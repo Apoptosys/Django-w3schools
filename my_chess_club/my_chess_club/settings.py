@@ -10,8 +10,14 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
-from pathlib import Path
 
+import os
+from pathlib import Path
+from dotenv import load_dotenv
+
+
+dotenv_path = os.path.join(os.path.dirname(__file__), '../.env')
+load_dotenv(dotenv_path)
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -25,7 +31,7 @@ SECRET_KEY = 'django-insecure-fs$&y(in_+vkj8lm8ol8xcsnw^_b%a4ftfn^g_jwjau0z7-=2a
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -38,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'members',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -74,13 +81,19 @@ WSGI_APPLICATION = 'my_chess_club.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+DB_PATH = str(os.getenv('DB_PATH'))
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': BASE_DIR / DB_PATH,
     }
 }
 
+
+
+MEDIA_ROOT = os.path.join(BASE_DIR, str(os.getenv('MEDIA_PATH')))
+MEDIA_URL = str(os.getenv('MEDIA_URL'))
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -111,6 +124,11 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
+
+SESSION_COOKIE_AGE = 60 * 60 * 24 * 30
+
+LOGIN_REDIRECT_URL ='/'
+LOGIN_URL = 'login'
 
 
 # Static files (CSS, JavaScript, Images)

@@ -1,0 +1,16 @@
+{% extends "master.html" %}
+
+{% block title %}
+    Testing page
+{% endblock %}
+
+{% block content %}
+
+    {% for x in fruits %}
+        <h1>{{ x }}</h1>
+    {% endfor %}
+
+
+    <p>This is a testing page. Remove before sending to production.</p>
+
+{% endblock %}
